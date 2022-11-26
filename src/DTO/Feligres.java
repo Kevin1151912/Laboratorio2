@@ -140,7 +140,6 @@ public class Feligres{
                     
             case  "Cumplido":
                     totalizar = totalizar;
-                    System.out.println("Estas al Dia con la iglesia");
                     break;
          }
         return totalizar;

@@ -417,7 +417,7 @@ public class Vista extends javax.swing.JFrame {
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
         Feligres f = c.Pagar(txtCedulaD.getText());
-        f.Pagar(f.getEstado());
+        String.valueOf(f.Pagar(f.getEstado()));
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnTotalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalizarActionPerformed

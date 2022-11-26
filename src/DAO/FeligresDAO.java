@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import org.jcp.xml.dsig.internal.SignerOutputStream;
 
 /**
  *
@@ -27,8 +28,7 @@ public class FeligresDAO {
             consulta.setString(4, f.getTelefono());
             consulta.setString(5, f.getEstrato());
             consulta.setString(6, f.getEstado());
-            consulta.setString(7, String.valueOf(f.getTotalizar()));
-            consulta.setString(8, String.valueOf(f.getCont()));
+            
             consulta.executeUpdate();
             System.out.println("guarda");
         } catch (SQLException e) {
@@ -102,19 +102,23 @@ public class FeligresDAO {
         
     }*/
     
-    public static Feligres PagarDiezmo(Connection cn,String cedula) throws SQLException{
-        Feligres a =new Feligres();
-        try{
-            PreparedStatement consulta;
-            consulta=cn.prepareStatement("Select estrato as etr , estado as est, totalPagado as tp from feligres where cedula='"+cedula+"'");
-            ResultSet rs=consulta.executeQuery();
-            if(rs.next()){
-                a.setEstrato(rs.getString("etr"));
+    public static Feligres PagarDiezmo(Connection cn, String cedula) throws SQLException {
+        Feligres a = new Feligres();
+        try {
+            PreparedStatement consulta1;
+            PreparedStatement consulta2;
+            consulta2 = cn.prepareStatement("Insert into feligres(cedula,nombre,direccion,telefono,estrato,estado,totalPagado,numeroPagos) Values(?,?,?,?,?,?,?,?)");
+            consulta1 = cn.prepareStatement("Select estrato as etr , estado as est, totalPagado as tp from feligres where cedula='" + cedula + "'");
+            ResultSet rs = consulta1.executeQuery();
+            if (rs.next()) {
                 a.setEstado(rs.getString("est"));
-                consulta.setString(7,String.valueOf(a.getTotalizar()));
-                consulta.setString(8, String.valueOf(a.getCont()));
             }
-        }catch(SQLException e){
+            consulta2.setString(7, String.valueOf(a.getTotalizar()));
+            consulta2.setString(8, String.valueOf(a.getCont()));
+            consulta2.executeUpdate();
+            System.out.println("Guardado");
+        } catch (SQLException e) {
+            System.out.println("No Guardado");
             throw new SQLException(e);
         }
         return a;
