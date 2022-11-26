@@ -2,6 +2,7 @@
 package DTO;
 
 import java.util.Objects;
+import javax.swing.JTextField;
 
 public class Feligres{
     private String cedula;
@@ -10,11 +11,12 @@ public class Feligres{
     private String telefono;
     private String estrato;
     private String estado;
-    private String diezmo;
-    private static Integer totalizar = 0;
-    private int cont = 0;
+    private int diezmo;
+    private int totalizar;
+    private int cont;
 
     public Feligres() {
+        
     }
 
     public Feligres(String cedula, String nombre, String direccion, String telefono, String estrato, String estado) {
@@ -26,18 +28,16 @@ public class Feligres{
         this.estado = estado;
     }
 
-    
-    
-    
-    public Feligres(String cedula, String nombre, String direccion, String telefono, String estrato, String estado, String diezmo){
+    public Feligres(String cedula, String nombre, String direccion, String telefono, String estrato, String estado, int diezmo, int totalizar, int cont) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
         this.estrato = estrato;
         this.estado = estado;
-        this.diezmo=diezmo;
-
+        this.diezmo = diezmo;
+        this.totalizar = totalizar;
+        this.cont = cont;
     }
 
     public String getCedula() {
@@ -89,50 +89,63 @@ public class Feligres{
         this.estado = estado;
     }
 
-    public String getDiezmo(String estrato1) {
-        
-        
+    public int getDiezmo() {
+        return diezmo;
+    }
+    
+    public int validarDiesmo(String estrato1) {
         switch(estrato1){
             case  "1":
-                    diezmo = "250000";
+                    diezmo = 250000;
                     break;
                     
             case  "2":
-                    diezmo = "500000";
+                    diezmo = 500000;
                     break;
                     
             case  "3":
-                    diezmo = "1000000";
+                    diezmo = 1000000;
                     break;
         }
         return diezmo;
     }
 
-    public void setDiezmo(String diezmo) {
+    public void setDiezmo(int diezmo) {
         this.diezmo = diezmo;
     }
 
-    public Integer getTotalizar() {
+    public int getTotalizar() {
         return totalizar;
     }
 
-    public void setTotalizar(Integer totalizar) {
+    public void setTotalizar(int totalizar) {
         this.totalizar = totalizar;
     }
 
-    /*public String pagarDiezmo() {
-        
-        StringBuffer sb = new StringBuffer("PAGOS DE DIEZMO IGLESIA SAGRADA FAMILIA\n");
-        if(getEstado()== "Deudor"){
-        cont++;
-        totalizar = totalizar + Integer.valueOf(diezmo);
-        sb.append("Feligres: " + nombre + " Pago: " + diezmo + " N° de pago:" + cont);
-        this.setEstado("Cumplido");
-        }else{
-            sb.append("Esta al dia con la iglesia");
-        }
-        return sb.toString();
+    public int getCont() {
+        return cont;
+    }
 
-    }*/
+    public void setCont(int cont) {
+        this.cont = cont;
+    }
+    
+    public int Pagar(String estado1){ 
+         switch(estado1){
+            case  "Duedor":
+                    cont++;
+                    totalizar += diezmo;
+                    setEstado("Cumplid0");
+                    break;
+                    
+            case  "Cumplido":
+                    totalizar = totalizar;
+                    System.out.println("Estas al Dia con la iglesia");
+                    break;
+         }
+        return totalizar;
+    }
+        
+    
     
 }

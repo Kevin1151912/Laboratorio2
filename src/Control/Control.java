@@ -35,7 +35,7 @@ public class Control{
 
     }
     
-    public Feligres Totalizar(String cedula) {
+    /*public Feligres Totalizar(String cedula) {
 
         try {
             return fe.TotalizarDiezmo(Conexion.obtener(), cedula);
@@ -44,7 +44,7 @@ public class Control{
         }
         return null;
 
-    }
+    }*/
     
     public Feligres Pagar(String cedula) {
 

@@ -411,23 +411,19 @@ public class Vista extends javax.swing.JFrame {
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
         Feligres f = c.Consultar(txtCedulaD.getText());
-        txtValorDiesmo.setText(f.getDiezmo(f.getEstrato()));
-        //String diezmo=f.validarDiesmo();
-        //txtValorDiesmo.setText(diezmo);
-        //String diezmo= String.valueOf(f.getDiezmo());
-        //txtValorDiesmo.setText(diezmo);
+        txtValorDiesmo.setText(String.valueOf(f.validarDiesmo(f.getEstrato())));
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         // TODO add your handling code here:
         Feligres f = c.Pagar(txtCedulaD.getText());
-        //txtResultados.setText(String.valueOf(f.pagarDiezmo()));
+        f.Pagar(f.getEstado());
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void btnTotalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalizarActionPerformed
         // TODO add your handling code here:
-        Feligres f = c.Totalizar(txtCedulaD.getText());
-        txtResultados.setText(String.valueOf(f.getTotalizar()));
+        //Feligres f = c.Totalizar(txtCedulaD.getText());
+        //txtResultados.setText(String.valueOf(f.getTotalizar()));
         //vista.jTextArea1.setText(f.totalizar(vista.txtCedula1.getText()));
     }//GEN-LAST:event_btnTotalizarActionPerformed
 

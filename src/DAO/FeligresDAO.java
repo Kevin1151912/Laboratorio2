@@ -20,13 +20,15 @@ public class FeligresDAO {
     public static void GuardarFeligres(Connection cn, DTO.Feligres f) throws SQLException {
         try {
             PreparedStatement consulta;
-            consulta = cn.prepareStatement("Insert into feligres(cedula,nombre,direccion,telefono,estrato,estado) Values(?,?,?,?,?,?)");
+            consulta = cn.prepareStatement("Insert into feligres(cedula,nombre,direccion,telefono,estrato,estado,totalPagado,numeroPagos) Values(?,?,?,?,?,?,?,?)");
             consulta.setString(1, f.getCedula());
             consulta.setString(2, f.getNombre());
             consulta.setString(3, f.getDireccion());
             consulta.setString(4, f.getTelefono());
             consulta.setString(5, f.getEstrato());
             consulta.setString(6, f.getEstado());
+            consulta.setString(7, String.valueOf(f.getTotalizar()));
+            consulta.setString(8, String.valueOf(f.getCont()));
             consulta.executeUpdate();
             System.out.println("guarda");
         } catch (SQLException e) {
@@ -96,38 +98,25 @@ public class FeligresDAO {
         return f;
     }
     
-    public static Feligres TotalizarDiezmo(Connection cn,String cedula) throws SQLException{
-        Feligres f =new Feligres();
-        try{
-            PreparedStatement consulta;
-            consulta=cn.prepareStatement("Select estrato as etr from feligres where cedula='"+cedula+"'");
-            ResultSet rs=consulta.executeQuery();
-            if(rs.next()){
-                f.setEstrato(rs.getString("etr"));
-            }
-           
-        }catch(SQLException e){
-            System.out.println("    Error Consulta");
-            throw new SQLException(e);
-        }
-        return f;
-    }
+    /*public static Feligres TotalizarDiezmo(Connection cn,String cedula) throws SQLException{
+        
+    }*/
     
     public static Feligres PagarDiezmo(Connection cn,String cedula) throws SQLException{
-        Feligres f =new Feligres();
+        Feligres a =new Feligres();
         try{
             PreparedStatement consulta;
-            consulta=cn.prepareStatement("Select estado as est from feligres where cedula='"+cedula+"'");
+            consulta=cn.prepareStatement("Select estrato as etr , estado as est, totalPagado as tp from feligres where cedula='"+cedula+"'");
             ResultSet rs=consulta.executeQuery();
             if(rs.next()){
-                f.setEstado(rs.getString("est"));
+                a.setEstrato(rs.getString("etr"));
+                a.setEstado(rs.getString("est"));
+                consulta.setString(7,String.valueOf(a.getTotalizar()));
+                consulta.setString(8, String.valueOf(a.getCont()));
             }
-           
         }catch(SQLException e){
-            System.out.println("    Error Consulta");
             throw new SQLException(e);
         }
-        return f;
+        return a;
     }
-    
 }
